@@ -1,0 +1,135 @@
+<%- contentFor('body') %>
+<% if (alertmsg) { %>
+    <div class='<%= `alert alert-${alertmsg.type} alert-dismissible fade show` %>' role="alert">
+        <%= alertmsg.text %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<% } %>
+<div class="py-5 text-center">
+    <!--img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"-->
+    <h2>Mudança</h2>
+    <p class="lead"><%= changeId %></p>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-8 order-md-1">
+        <span class="badge badge-primary">Criada em: <%= dtCriacao %></span>
+        <% if (severidade == 'A') { %>
+            <span class="badge badge-dark">Severidade: A</span>
+        <% } else if (severidade == 'B') { %>
+            <span class="badge badge-secondary">Severidade: B</span>
+        <% } else if (severidade == 'C') { %>
+            <span class="label label-light">Severidade: C</span>
+        <% } %>
+
+        <% if (status == 'emAnalise') { %>
+            <span class="badge badge-warning">Status: Em análise ⚠️</span>
+        <% } else if (status == 'aprovada') { %>
+            <span class="badge badge-success">Status: Aprovada ✅</span>
+        <% } else if (status == 'rejeitada') { %>
+            <span class="badge badge-danger">Status: Rejeitada ❌</span>
+        <% } %>
+
+        <hr class="mb-4">
+        <h4 class="mb-3">Dados básicos</h4>
+        <form>
+            <div class="form-group">
+                <label for="titulo">O que?</label>
+                <input type="text" class="form-control" id="inputTitulo" name="titulo" value='<%= titulo %>' readonly>
+                <small class="text-muted">De que consiste a mudança</small>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="dtExecucao">Quando?</label>
+                    <input type="datetime-local" class="form-control" id="inputdtExecucao" name="dtExecucao" value='<%= dtExecucao %>' readonly>
+                    <small class="text-muted">Data programada para execução</small>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="responsavel">Quem?</label>
+                    <input type="text" class="form-control" id="inputResponsavel" name="responsavel" value='<%= responsavel %>' readonly>
+                    <small class="text-muted">Quem executará a mudança</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="impactoRisco">Qual o impacto e o risco na realização?</label>
+                <input type="text" class="form-control" id="inputImpactoRisco" name="impactoRisco" value='<%= impactoRisco %>' readonly>
+                <small class="text-muted">O que pode acontecer durante e depois da mudança</small>
+            </div>
+            <hr class="mb-4">
+            <h4 class="mb-3">Severidade</h4>
+            <div class="form-group">
+                <% if (aprovadores) {
+                    var aprvs = new Array();
+                    aprovadores.forEach((ap) => {
+                        if (ap.status == "emAnalise") { aprIcon = "⚠️" }
+                        else if (ap.status == "aprovada") { aprIcon = "✅" }
+                        else if (ap.status == "rejeitada") { aprIcon = "❌" }
+                        aprvs.push(`${aprIcon}${ap.usuario}`)    
+                    });
+                    aprvs = aprvs.join("; ");
+                } else { var aprvs = null } %>
+                <label for="aprovadores">Aprovadores</label>
+                <input type="text" class="form-control" id="inputAprovadores" name="aprovadores" placeholder="Quem pode aprovar a mudança? Quais são os responsáveis pela situação?" value='<%= aprvs %>' readonly>
+                <small class="text-muted">Pessoa(s) responsável(is) por aprovar a mudança</small>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="inputComite" name="comite" disabled <%= comite %>>
+                <label class="custom-control-label" for="inputComite">Esta mudança deve ser avaliada pelo Comitê</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="inputRotineira" name="rotineira" disabled <%= rotineira %>>
+                <label class="custom-control-label" for="inputRotineira">Esta é uma mudança rotineira</label>
+            </div>
+            <hr class="mb-4">
+            <h4 class="mb-3">Dados adicionais</h4>
+            <div class="form-group">
+                <label for="descricao">Descrição adicional</label>
+                <input type="text" class="form-control" id="inputDescricao" name="descricao" value='<%= descricao %>' readonly>
+                <small class="text-muted">Como será a feita mudança</small>
+            </div>
+            <div class="form-group">
+                <label for="associacao">Associação</label>
+                <input type="text" class="form-control" id="inputAssociacao" name="associacao" value='<%= associacao %>' readonly>
+                <small class="text-muted">Work item (AzDevOps) ou n° do chamado (Requestia) relacionado</small>
+            </div>
+            <div class="form-group">
+                <label>Notificação TI</label><br/>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inputNotificacaoTiGgt" name="notificacaoTiGgt" disabled <%= notificacaoTi.GGT %>>
+                    <label class="form-check-label" for="notificacaoGGT">GGT</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inputNotificacaoTiGot" name="notificacaoTiGot" disabled <%= notificacaoTi.GOT %>>
+                    <label class="form-check-label" for="notificacaoGOT">GOT</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inputNotificacaoTiGsi" name="notificacaoTiGsi" disabled <%= notificacaoTi.GSI %>>
+                    <label class="form-check-label" for="notificacaoGSI">GSI</label>
+                </div>
+                <br/><small class="text-muted">Pessoas ou grupos (e-mails) que precisam ser notificados</small>
+            </div>
+            <div class="form-group">
+                <label for="notificacao">Notificados</label>
+                <input type="text" class="form-control" id="inputNotificacao" name="notificacao" value='<%= notificacao %>' readonly>
+                <small class="text-muted">Pessoas ou grupos (e-mails) que precisam ser notificados</small>
+            </div>
+            <hr class="mb-4">
+            <% if (username == responsavel) { %>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="<%= `location.href='/edit/${changeId}';` %>">Editar</button>
+            <% } else if (aprovadores) {
+                aprovadores.forEach((ap) => {
+                    if ( (ap.usuario == username) && (ap.status == "emAnalise") ) { %>
+                        <button type="button" class="btn btn-success btn-lg btn-block" onclick="<%= `location.href='/vote/${changeId}/approve';` %>">Aprovar</button>
+                        <% if (comite != "checked") { %>
+                            <button type="button" class="btn btn-warning btn-lg btn-block" onclick="<%= `location.href='/vote/${changeId}/comitee';` %>">Aprovar, mas escalar para o comitê</button>
+                        <% } %>
+                        <button type="button" class="btn btn-danger btn-lg btn-block" onclick="<%= `location.href='/vote/${changeId}/deny';` %>">Rejeitar</button>
+                    <% }
+                });
+            } %>
+            <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="location.href='/changes'">Voltar</button>
+            <br/>
+        </form>
+    </div>
+</div>

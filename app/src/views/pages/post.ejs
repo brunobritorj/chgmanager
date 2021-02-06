@@ -1,0 +1,54 @@
+<%- contentFor('body') %>
+<div class="py-5 text-center">
+    <!--img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"-->
+    <h2>Nova mudança</h2>
+    <p class="lead">Cadastre sua nova mudança.</p>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-8 order-md-1">
+        <h4 class="mb-3">Dados básicos</h4>
+        <form method="POST" action="/new">
+            <div class="form-group">
+                <label for="titulo">O que?</label>
+                <input type="text" class="form-control" id="inputTitulo" name="titulo" placeholder="Ex.: Migração do servidor de arquivos" required>
+                <small class="text-muted">De que consiste a mudança.</small>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="dtExecucao">Quando?</label>
+                    <input type="datetime-local" class="form-control" id="inputdtExecucao" name="dtExecucao" placeholder="Quando será realizada a mudança?" required>
+                    <small class="text-muted">Data programada para execução.</small>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="responsavel">Quem?</label>
+                    <input type="text" class="form-control" id="inputResponsavel" name="responsavel" placeholder="Quem fará a mudança?" value='<%= username %>' readonly>
+                    <small class="text-muted">Quem executará a mudança.</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="impactoRisco">Qual o impacto e o risco na realização?</label>
+                <textarea class="form-control" id="inputImpactoRisco" name="impactoRisco" placeholder="Ex.: Durante a mudança, os arquivos do Centro estarão indisponíveis. Algo de improvalmente poderia acontecer indisponibilizando os arquivos, sendo necessária restauração do backup." required></textarea>
+                <small class="text-muted">O que pode acontecer durante e depois da mudança.</small>
+            </div>
+            <hr class="mb-4">
+            <h4 class="mb-3">Severidade</h4>
+            <div class="form-group">
+                <label for="aprovadores">Aprovadores</label>
+                <input type="text" class="form-control" id="inputAprovadores" name="aprovadores" placeholder="Ex.: user1@dominio.com; user2@dominio.com.br">
+                <small class="text-muted">Pessoa(s) responsável(is) por aprovar a mudança.</small>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="inputComite" name="comite">
+                <label class="custom-control-label" for="inputComite">Esta mudança deve ser avaliada pelo Comitê</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="inputRotineira" name="rotineira">
+                <label class="custom-control-label" for="inputRotineira">Esta é uma mudança rotineira</label>
+            </div>
+            <hr class="mb-4">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Cadastrar</button>
+            <button type="reset" class="btn btn-secondary btn-lg btn-block">Limpar</button>
+            <br/>
+        </form>
+    </div>
+</div>

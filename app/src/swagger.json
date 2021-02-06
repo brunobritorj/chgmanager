@@ -1,0 +1,157 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "0.0.1",
+    "title": "opsManager",
+    "description": ""
+  },
+  "host": "localhost",
+  "basePath": "/api",
+  "tags": [
+    { "name": "Gateways", "description": "/net/gateway" },
+    { "name": "Switches", "description": "/net/switch" }
+  ],
+  "schemes": [],
+  "securityDefinitions": {},
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/net/gateway": {
+      "get": {
+        "tags": [ "Gateways" ],
+        "description": "Lista os gateways",
+        "parameters": [
+          { "name": "results", "in": "query" },
+          { "name": "hostname", "in": "query" },
+          { "name": "model", "in": "query" },
+          { "name": "sn", "in": "query" }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "204": { "description": "No content" }
+        }
+      },
+      "post": {
+        "tags": [ "Gateways" ],
+        "description": "Adiciona um gateway",
+        "parameters": [],
+        "responses": {
+          "200": { "description": "OK" },
+          "201": { "description": "Created" },
+          "400": { "description": "Bad Request" }
+        }
+      }
+    },
+    "/net/gateway/{id}": {
+      "get": {
+        "tags": [ "Gateways" ],
+        "description": "Exibe um gateway",
+        "parameters": [{ "name": "id", "in": "path", "required": true }],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "put": {
+        "tags": [ "Gateways" ],
+        "description": "Atualiza um gateway",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "delete": {
+        "tags": [ "Gateways" ],
+        "description": "Deleta um gateway",
+        "parameters": [{ "name": "id", "in": "path", "required": true }],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Not Found" }
+        }
+      }
+    },
+    "/net/switch": {
+      "get": {
+        "tags": [ "Switches" ],
+        "description": "Lista os switches",
+        "parameters": [
+          { "name": "results", "in": "query" },
+          { "name": "hostname", "in": "query" },
+          { "name": "model", "in": "query" },
+          { "name": "sn", "in": "query" }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "204": { "description": "No content" }
+        }
+      },
+      "post": {
+        "tags": [ "Switches" ],
+        "description": "Adiciona um switch",
+        "parameters": [],
+        "responses": {
+          "200": { "description": "OK" },
+          "201": { "description": "Created" },
+          "400": { "description": "Bad Request" }
+        }
+      }
+    },
+    "/net/switch/{id}": {
+      "get": {
+        "tags": [ "Switches" ],
+        "description": "Exibe um switch",
+        "parameters": [{ "name": "id", "in": "path", "required": true }],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "put": {
+        "tags": [ "Switches" ],
+        "description": "Atualiza um switch",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "delete": {
+        "tags": [ "Switches" ],
+        "description": "Deleta um switch",
+        "parameters": [{ "name": "id", "in": "path", "required": true }],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Not Found" }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses" : {
+      "200": { "description": "OK" },
+      "201": { "description": "Created" },
+      "204": { "description": "No content" },
+      "400": { "description": "Bad Request" },
+      "404": { "description": "Not Found" }
+    }
+  }
+}

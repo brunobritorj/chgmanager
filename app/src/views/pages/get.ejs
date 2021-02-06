@@ -1,0 +1,58 @@
+<%- contentFor('body') %>
+<% if (alertmsg) { %>
+    <div class='<%= `alert alert-${alertmsg.type} alert-dismissible fade show` %>' role="alert">
+        <%= alertmsg.text %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<% } %>
+<div class="py-5 text-center">
+    <!--img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"-->
+    <h2><%= mainTitle %></h2>
+    <p class="lead"><%= mainSubtitle %></p>
+</div>
+<div class="row justify-content-center">
+    <div style="col-md-8 order-md-1">
+      <input class="form-control" id="myInput" type="text" placeholder="Filtre por o quê, quando severidade ou status">
+      <br>
+      <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>O quê</th>
+                    <th>Quando</th>
+                    <th>Sev</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                <% if (changes) { %>
+                <% changes.forEach((change) => { %>
+                <tr class="changeTr" onclick=<%= `document.location='/changes/${change._id}'` %> >
+                    <td><%= change.titulo %></td>
+                    <td><%= change.dtExecucao %></td>
+                    <td><%= change.severidade %></td>
+                    <% if (change.status == "emAnalise") { %>
+                        <td>⚠️ Em análise</td>
+                    <% } else if (change.status == "aprovada") { %>
+                        <td>✅ Aprovada</td>
+                    <% } else if (change.status == "rejeitada") { %>
+                        <td>❌ Rejeitada</td>
+                    <% } %>
+                </tr>
+                <% }) %>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    <script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle( $(this).text().toLowerCase().indexOf(value) > -1 );
+        });
+      });
+    });
+    </script>
+</div>
